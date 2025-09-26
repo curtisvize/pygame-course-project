@@ -29,9 +29,7 @@ class Robot_Runner:
         self.coins_number = 3
         self.monsters_number = 2
         self.coins = []
-        self.monsters = []
-        self.player_speed = 3
-        self.object_speed = 2
+        self.monsters = []     
         self.spawn_distance_min = 100
         self.spawn_distance_max = 500
         self.gravity = 1
@@ -45,9 +43,9 @@ class Robot_Runner:
         self.main_loop()
     
     # init functions
-    # The player is stored as a dictionary with coordinate(x, y), rect, and map keys.
+    # The player is stored as a dictionary with coordinate(x, y), rect, and mask keys.
     # Coins and monsters are lists of dict objects, each having a similar data structure.
-    # Rects and maps are used to aid in collision detection as these are built in to Pygame.
+    # Rects and masks are used to aid in collision detection as these are built in to Pygame.
     def init_player(self):
         player_x, player_y = self.width * 0.01, self.ground
 
@@ -67,13 +65,15 @@ class Robot_Runner:
         self.min_jump_power = -8
         self.max_jump_power = -200
         self.jump_power_increment = 1.2
-        self.max_jump_y = self.images["coin"].get_height() - 4 # no coins should be out of reach
+        self.max_jump_y = self.images["coin"].get_height() - 8 # no coins should be out of reach
 
         # movement variables
+        self.player_speed = 3
         self.min_x = 0
         self.max_x = self.width - self.images["robot"].get_width()
     
     def init_objects(self):
+        self.object_speed = 2
         self.coins = [self.respawn("coin") for i in range(self.coins_number)]
         self.monsters = [self.respawn("monster") for i in range(self.monsters_number)]
 
